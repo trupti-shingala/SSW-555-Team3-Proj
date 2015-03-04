@@ -1,9 +1,10 @@
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class family {
+public class Family {
 	private String Id;
 	private String husband;
 	private String wife;
@@ -11,6 +12,7 @@ public class family {
 	private ArrayList<String> children = new ArrayList<String>();
 	private Calendar marriageDate;
 	private Calendar divorceDate;
+	
 	
 	public String getId() {
 		return Id;

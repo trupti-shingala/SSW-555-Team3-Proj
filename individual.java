@@ -1,10 +1,11 @@
+
 import java.awt.List;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 
 
-public class individual {
+public class Individual {
 	private String id;
 	private String name;
 	private String gender;
@@ -14,6 +15,7 @@ public class individual {
 	private ArrayList<String> fams = new ArrayList<String>();
 	private ArrayList<String> famc = new ArrayList<String>();
 	
+		
 	public String gettID(){
 		return id;
 	}
