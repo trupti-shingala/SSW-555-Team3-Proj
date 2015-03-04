@@ -271,7 +271,59 @@ public class P04 {
 			}
 	 }
 	 
-	
+	 public static void checkDivorceBeforeBirthError()
+	 {
+		 System.out.println("\n\ncheck divorce before birth\n\n");
+			
+			for (Map.Entry<String,Family> entry1 : getGedcomFamily().entrySet())
+			{
+				
+				if(entry1.getValue().getDivorceDate()!=null)
+					
+				{
+					if(!entry1.getValue().getDivorceDate().before(getGedcomIndiList().get(entry1.getValue().getHusband()).getBirthDate()))
+						System.out.println("PassH");
+					else
+						System.out.println("Error:Divorce before Birth for"+getGedcomIndiList().get(entry1.getValue().getHusband()).gettID());
+				
+					if(!entry1.getValue().getDivorceDate().before(getGedcomIndiList().get(entry1.getValue().getWife()).getBirthDate()))
+						System.out.println("PassW");
+					else
+						System.out.println("Error:Divorce before Birth for"+getGedcomIndiList().get(entry1.getValue().getWife()).gettID());
+			
+				
+				}else
+					System.out.println("Pass");
+			}
+			
+	 
+	 }
+	 
+	  public static void checkMarriageWithSiblingError()
+	 {
+		 System.out.println("\n\ncheck:marriage between siblings\n\n");
+		 
+		 for(Map.Entry<String,Family> entry :getGedcomFamily().entrySet())
+			{
+			 if(entry.getValue().getChildren().size()>1)
+				 for(int i=0;i<entry.getValue().getChildren().size();i++)
+					 for(int j=i+1;j<entry.getValue().getChildren().size();j++)
+					 {
+						 if(
+							getGedcomIndiList().get(entry.getValue().getChildren().get(i)).getFams().equals(entry.getKey())
+						    &&getGedcomIndiList().get(entry.getValue().getChildren().get(j)).getFams().equals
+						    (getGedcomIndiList().get(entry.getValue().getChildren().get(j)).getFams())
+						   )
+						 {
+								System.out.println("Error:Marriage between siblings for "+getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettID()+" & "+getGedcomIndiList().get(entry.getValue().getChildren().get(j)).gettID());
+						
+						 }
+						 else
+							 System.out.println("pass");
+							 
+					 }
+			}
+	 }
 	 
 	
 	 
@@ -285,7 +337,7 @@ public class P04 {
 			filename  = args[0];
 		}
 		else{
-			filename = "C:\\Users\\Poonam\\Desktop\\study\\s.ged";
+			filename = "sample1.ged";
 			P04.read(filename);
 			
 		}
@@ -303,7 +355,8 @@ public class P04 {
 		
 		checkDivorceBeforeMarriageError();
 		checkHusbandWifeGenderError();
-		
+		checkMarriageWithSiblingError();
+		checkDivorceBeforeBirthError();
 		
 		
 		}
