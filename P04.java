@@ -325,7 +325,62 @@ public class P04 {
 			}
 	 }
 	 
+	public static void checkMarriageBeforeBirthError()
+	 {
+		 System.out.println("\n\ncheck marriage before birth\n\n");
+			
+			for (Map.Entry<String,Family> entry1 : getGedcomFamily().entrySet())
+			{
+				
+				if(entry1.getValue().getMarriageDate()!=null)
+					
+				{
+					if(!entry1.getValue().getMarriageDate().before(getGedcomIndiList().get(entry1.getValue().getHusband()).getBirthDate()))
+						System.out.println("PassH");
+					else
+						System.out.println("Error:Marriage before Birth for"+getGedcomIndiList().get(entry1.getValue().getHusband()).gettID());
+				
+					if(!entry1.getValue().getMarriageDate().before(getGedcomIndiList().get(entry1.getValue().getWife()).getBirthDate()))
+						System.out.println("PassW");
+					else
+						System.out.println("Error:Marriage before Birth for"+getGedcomIndiList().get(entry1.getValue().getWife()).gettID());
+			
+				
+				}
+			}
+			
+	 
+	 }
+	 
+	 
 	
+	 public static void checkMarriageAfterDeathError()
+	 {
+		 System.out.println("\n\ncheck marriage after death\n\n");
+			
+			for (Map.Entry<String,Family> entry1 : getGedcomFamily().entrySet())
+			{
+				
+				if(entry1.getValue().getMarriageDate()!=null)
+					if(getGedcomIndiList().get(entry1.getValue().getHusband()).getDeath()!=null&&getGedcomIndiList().get(entry1.getValue().getWife()).getDeath()!=null)
+				{
+					if(!entry1.getValue().getMarriageDate().before(getGedcomIndiList().get(entry1.getValue().getHusband()).getBirthDate()))
+						System.out.println("PassH");
+					else
+						System.out.println("Error:Marriage after death for"+getGedcomIndiList().get(entry1.getValue().getHusband()).gettID());
+				
+					if(!entry1.getValue().getMarriageDate().before(getGedcomIndiList().get(entry1.getValue().getWife()).getBirthDate()))
+						System.out.println("PassW");
+					else
+						System.out.println("Error:Marriage after death for"+getGedcomIndiList().get(entry1.getValue().getWife()).gettID());
+			
+				
+				}else
+					System.out.println("Pass");
+			}
+			
+	 
+	 }
 	 
 	
 	
@@ -357,6 +412,8 @@ public class P04 {
 		checkHusbandWifeGenderError();
 		checkMarriageWithSiblingError();
 		checkDivorceBeforeBirthError();
+		checkMarriageBeforeBirthError();
+		checkMarriageAfterDeathError();
 		
 		
 		}
