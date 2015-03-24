@@ -12,6 +12,8 @@ public class Family {
 	private ArrayList<String> children = new ArrayList<String>();
 	private Calendar marriageDate;
 	private Calendar divorceDate;
+	private Calendar currentDate;
+        private Date birt;
 	
 	
 	public String getId() {
@@ -54,6 +56,21 @@ public class Family {
 	
 	public void addChildren(String id){
 		children.add(id);
+	}
+	
+	public void setcurrentDate(Calendar currentDate){
+            this.currentDate=currentDate;
+        }
+        
+        public Calendar getcurrentDate(){
+            return currentDate;
+        }
+
+         public Date getBirthDate() {
+	return birt;
+	}
+	public void setBirthDate(Date birt) {
+	this.birt = birt;
 	}
 
 }
