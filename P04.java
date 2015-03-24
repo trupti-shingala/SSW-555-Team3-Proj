@@ -223,6 +223,48 @@ public class P04 {
 		//validTags.add("BIRTH");
 	
 	}
+	
+	public static void checkDivorceafterTodayDate()
+         {
+             System.out.println("\n\nCheck Divorce After Today's date\n\n");
+             int x;
+             for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet()){
+                 
+                 if(!entry.getValue().getDivorceDate().after(getGedcomIndiList().get(entry.getValue().getcurrentDate())))
+						System.out.println("Error:Divorce after Current date for ");
+					else
+						System.out.println("Pass");
+                 
+             }
+         }
+         
+         public static void checkIndividualBirthdatebeforeParentBirthdate()
+         {
+             System.out.println("\n\n check Individual's Birthdate before Parents' Birthdate\n\n");
+             for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
+			{
+				
+				if(entry.getValue().getBirthDate()!=null)
+					
+				{
+					if(entry.getValue().getBirthDate().before(getGedcomIndiList().get(entry.getValue().getHusband()).getBirthDate()))
+						System.out.println("Error:Person Birthdate before Parent's Birthdate "+getGedcomIndiList().get(entry.getValue().getHusband()).gettID());
+					else
+						System.out.println("Pass for Husband");
+				
+					if(!entry.getValue().getBirthDate().before(getGedcomIndiList().get(entry.getValue().getWife()).getBirthDate()))
+						System.out.println("Error:Person Birthdate before Parent's Birthdate "+getGedcomIndiList().get(entry.getValue().getWife()).gettID());
+					else
+						System.out.println("Pass For Wife");
+			
+				
+				}
+                                
+                                else
+					System.out.println("Pass");
+			}
+             
+         }
 	 
 	 public static void checkHusbandWifeGenderError(){//HashMap<String,  individual> gedcomPersonList, HashMap<String, family> gedcomFamilyList ){
 			
@@ -509,6 +551,8 @@ public class P04 {
 		checkBirthAfterDeathError(gedcomIndi, gedcomFamily);
 		checkBirthOfChildAfterDeathOfMotherError(gedcomIndi, gedcomFamily);
 		checkChildWithoutParentError(gedcomIndi, gedcomFamily);
+		checkDivorceafterTodayDate();
+		checkIndividualBirthdatebeforeParentBirthdate();
 		
 		}
 			
