@@ -9,8 +9,8 @@ public class Individual {
 	private String id;
 	private String name;
 	private String gender;
-	private Date birt;
-	private Date death;
+	private Calendar birt;
+	private Calendar death;
 	
 	private ArrayList<String> fams = new ArrayList<String>();
 	private ArrayList<String> famc = new ArrayList<String>();
@@ -36,17 +36,17 @@ public class Individual {
 	public void setGender(String gender){
 		this.gender=gender;
 	}
-	public Date getBirthDate() {
+	public Calendar getBirthDate() {
 	return birt;
 	}
-	public void setBirthDate(Date birt) {
+	public void setBirthDate(Calendar birt) {
 	this.birt = birt;
 	}
 
-	public Date getDeath() {
+	public Calendar getDeath() {
 	return death;
 	}
-	public void setDeath(Date death) {
+	public void setDeath(Calendar death) {
 	this.death = death;
 	}
 	public ArrayList<String> getFams() {
