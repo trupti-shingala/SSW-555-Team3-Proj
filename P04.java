@@ -382,6 +382,54 @@ public class P04 {
 	 
 	 }
 	 
+	 
+	 public static void checkMarriageBeforeLegalAgeError(HashMap<String, Individual> gedcomIndividualList, HashMap<String, Family> gedcomFamilyList){
+			
+			System.out.println("\n");
+			System.out.println("Check Marriage before Legal Age Errors");
+		    System.out.println("--------------------------------------");
+		    
+			for (Map.Entry<String,Individual> entry : gedcomIndividualList.entrySet()) {
+				Individual p = entry.getValue();
+				Calendar birthDate = entry.getValue().getBirthDate();
+				List<String> sFam = entry.getValue().getFams();
+				
+				for(String sFamily: sFam){
+					Family marriedFamily = gedcomFamilyList.get(sFamily);
+					Calendar marriageDate  = marriedFamily.getMarriageDate();
+					
+					if(marriageDate != null && birthDate !=null){
+						long yeardiff = marriageDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR);
+						
+						if(yeardiff< 18){
+							System.out.println("ERROR: " + p.gettName()+ " (Id: "+ p.gettID() + ") is married before legal age");
+						}
+					}
+					
+				}
+				
+			}
+	 }
+	 
+	 public static void checkBirthAfterDeathError(HashMap<String, Individual> gedcomIndividualList, HashMap<String, Family> gedcomFamilyList ){
+
+			System.out.println("\n");
+			System.out.println("Birth after the Death of an Individual Errors");
+		    System.out.println("---------------------------------------------");
+				
+				for (Map.Entry<String,Individual> entry : gedcomIndividualList.entrySet()) {
+					Calendar birthDate = entry.getValue().getBirthDate();
+					Calendar deathDate = entry.getValue().getDeath();
+				
+					
+					if (birthDate != null && deathDate!=null && birthDate.after(deathDate))
+						System.out.println("ERROR: " + entry.getValue().gettName()+ " (Id: "+ entry.getValue().gettID() + ") was born after death");
+					
+					
+				}
+		}
+	 
+	 
 	
 	
 	
@@ -414,6 +462,8 @@ public class P04 {
 		checkDivorceBeforeBirthError();
 		checkMarriageBeforeBirthError();
 		checkMarriageAfterDeathError();
+		checkMarriageBeforeLegalAgeError(gedcomIndi, gedcomFamily);
+		checkBirthAfterDeathError(gedcomIndi, gedcomFamily);
 		
 		
 		}
