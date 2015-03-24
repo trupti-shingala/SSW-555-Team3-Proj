@@ -429,7 +429,50 @@ public class P04 {
 				}
 		}
 	 
-	 
+	 public static void checkChildWithoutParentError(HashMap<String, Individual> gedcomIndividualList, HashMap<String, Family> gedcomFamilyList )
+	 {
+		 System.out.println("\n\ncheck:child has both parent\n\n");
+		 
+		 for(Map.Entry<String,Family> entry :gedcomFamilyList.entrySet())
+			{
+			 if(entry.getValue().getChildren()!=null)
+				 if(entry.getValue().getHusband()==null||entry.getValue().getWife()==null)
+						 {
+								System.out.println("Error:child "+entry.getValue().getId()+"does not have both the parents ");
+						
+						 }
+						 else
+							 System.out.println("pass");
+							 
+			 }
+	}
+	
+	 public static void checkBirthOfChildAfterDeathOfMotherError(HashMap<String, Individual> gedcomPersonList, HashMap<String, Family> gedcomFamilyList ){
+
+			System.out.println("\n");
+			System.out.println("Birth of child after the Death of the Mother Errors");
+		    System.out.println("---------------------------------------------");
+			
+		 //   Calendar birthDate = entry.getValue().getBirthDate();
+			
+		    for (Map.Entry<String,Family> entry : gedcomFamilyList.entrySet())  {
+		    	Calendar deathDateMother = gedcomPersonList.get(entry.getValue().getWife()).getDeath();
+		    	if(!entry.getValue().getChildren().isEmpty())
+		    	{
+		    		int flag=0;
+		    		 for(int i=0;i<entry.getValue().getChildren().size();i++)
+						 {
+		    			Calendar birthDateChild = gedcomPersonList.get(entry.getValue().getChildren().get(i)).getBirthDate();
+						 if(birthDateChild.after(deathDateMother))
+							 System.out.println("Error: birth of child "+gedcomPersonList.get(entry.getValue().getChildren().get(i)).gettName()+"after death of mother"+gedcomPersonList.get(entry.getValue().getWife()).gettName());
+						 flag++;
+						 }
+		    		 if(flag==0)
+		 		    	System.out.println("Pass");
+		    }
+		    
+		}
+	 }
 	
 	
 	
@@ -464,7 +507,8 @@ public class P04 {
 		checkMarriageAfterDeathError();
 		checkMarriageBeforeLegalAgeError(gedcomIndi, gedcomFamily);
 		checkBirthAfterDeathError(gedcomIndi, gedcomFamily);
-		
+		checkBirthOfChildAfterDeathOfMotherError(gedcomIndi, gedcomFamily);
+		checkChildWithoutParentError(gedcomIndi, gedcomFamily);
 		
 		}
 			
