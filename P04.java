@@ -471,23 +471,7 @@ public class P04 {
 				}
 		}
 	 
-	 public static void checkChildWithoutParentError(HashMap<String, Individual> gedcomIndividualList, HashMap<String, Family> gedcomFamilyList )
-	 {
-		 System.out.println("\n\ncheck:child has both parent\n\n");
-		 
-		 for(Map.Entry<String,Family> entry :gedcomFamilyList.entrySet())
-			{
-			 if(entry.getValue().getChildren()!=null)
-				 if(entry.getValue().getHusband()==null||entry.getValue().getWife()==null)
-						 {
-								System.out.println("Error:child "+entry.getValue().getId()+"does not have both the parents ");
-						
-						 }
-						 else
-							 System.out.println("pass");
-							 
-			 }
-	}
+	
 	
 	 public static void checkBirthOfChildAfterDeathOfMotherError(HashMap<String, Individual> gedcomPersonList, HashMap<String, Family> gedcomFamilyList ){
 
@@ -516,7 +500,33 @@ public class P04 {
 		}
 	 }
 	
-	
+	 public static void checkDivorceAfterDeathError()
+	 {
+		 System.out.println("\ncheck divorce after death\n");
+			
+			for (Map.Entry<String,Family> entry1 : getGedcomFamily().entrySet())
+			{
+				
+				if(entry1.getValue().getDivorceDate()!=null)
+					if(getGedcomIndiList().get(entry1.getValue().getHusband()).getDeath()!=null&&getGedcomIndiList().get(entry1.getValue().getWife()).getDeath()!=null)
+				{
+					if(!entry1.getValue().getDivorceDate().before(getGedcomIndiList().get(entry1.getValue().getHusband()).getBirthDate()))
+						System.out.println("PassH");
+					else
+						System.out.println("Error:Divorce after death for"+getGedcomIndiList().get(entry1.getValue().getHusband()).gettName());
+				
+					if(!entry1.getValue().getDivorceDate().before(getGedcomIndiList().get(entry1.getValue().getWife()).getBirthDate()))
+						System.out.println("PassW");
+					else
+						System.out.println("Error:Divorce after death for"+getGedcomIndiList().get(entry1.getValue().getWife()).gettName());
+			
+				
+				}else
+					System.out.println("Pass");
+			}
+			
+	 
+	 }
 	
 	 
 	 public static void main(String args[]){
@@ -541,18 +551,19 @@ public class P04 {
 			System.out.println();
 		}
 		
-		checkDivorceBeforeMarriageError();
-		checkHusbandWifeGenderError();
-		checkMarriageWithSiblingError();
-		checkDivorceBeforeBirthError();
-		checkMarriageBeforeBirthError();
-		checkMarriageAfterDeathError();
+		//checkDivorceBeforeMarriageError();
+		//checkHusbandWifeGenderError();
+		//checkMarriageWithSiblingError();
+		//checkDivorceBeforeBirthError();
+		//checkMarriageBeforeBirthError();
+		//checkMarriageAfterDeathError();
 		checkMarriageBeforeLegalAgeError(gedcomIndi, gedcomFamily);
 		checkBirthAfterDeathError(gedcomIndi, gedcomFamily);
 		checkBirthOfChildAfterDeathOfMotherError(gedcomIndi, gedcomFamily);
-		checkChildWithoutParentError(gedcomIndi, gedcomFamily);
+		
 		checkDivorceafterTodayDate();
 		checkIndividualBirthdatebeforeParentBirthdate();
+		checkDivorceAfterDeathError();
 		
 		}
 			
