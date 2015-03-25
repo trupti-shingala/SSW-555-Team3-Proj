@@ -492,7 +492,7 @@ public class P04 {
 	 public static void checkBirthOfChildAfterDeathOfMotherError(HashMap<String, Individual> gedcomPersonList, HashMap<String, Family> gedcomFamilyList ){
 
 			System.out.println("\n");
-			System.out.println("Birth of child after the Death of the Mother Errors");
+			System.out.println("Check for Birth of child after the Death of the Mother Errors");
 		    System.out.println("---------------------------------------------");
 			
 		 //   Calendar birthDate = entry.getValue().getBirthDate();
