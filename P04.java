@@ -231,7 +231,7 @@ public class P04 {
              for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet()){
                  
                  if(!entry.getValue().getDivorceDate().after(getGedcomIndiList().get(entry.getValue().getcurrentDate())))
-						System.out.println("Error:Divorce after Current date for " +getGedcomIndiList().get(entry.getValue().gettID().getName().getDivorceDate());
+						System.out.println("Error:Divorce after Current date for " +getGedcomIndiList().get(entry.getValue().gettName();
 					else
 						System.out.println("Pass");
                  
@@ -250,12 +250,12 @@ public class P04 {
 					if(entry.getValue().getBirthDate().before(getGedcomIndiList().get(entry.getValue().getHusband()).getBirthDate()))
 						System.out.println("Error:Person Birthdate before Parent's Birthdate "+getGedcomIndiList().get(entry.getValue().getHusband()).gettID().getName());
 					else
-						System.out.println("Pass for Husband");
+						System.out.println("Pass");
 				
 					if(!entry.getValue().getBirthDate().before(getGedcomIndiList().get(entry.getValue().getWife()).getBirthDate()))
-						System.out.println("Error:Person Birthdate before Parent's Birthdate "+getGedcomIndiList().get(entry.getValue().getWife()).gettID().getName());
+						System.out.println("Error:Person Birthdate before Parent's Birthdate "+getGedcomIndiList().get(entry.getValue().getWife()).gettName());
 					else
-						System.out.println("Pass For Wife");
+						System.out.println("Pass");
 			
 				
 				}
