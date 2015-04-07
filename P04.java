@@ -527,6 +527,55 @@ public class P04 {
 			
 	 
 	 }
+	 
+	 //Sprint 3
+	 public static void checkDivorceDatebeforeBirthdate()
+             {
+                 System.out.println("\n\nCheck Divorce Date before Birth Date");
+                 System.out.println("------------------------------------------");
+
+
+                            for (Map.Entry<String,Family> entry1 : getGedcomFamily().entrySet())
+                            {
+
+                                    if(entry1.getValue().getDivorceDate()!=null)
+
+                                    {
+                                            if(!entry1.getValue().getDivorceDate().before(getGedcomIndiList().get(entry1.getValue().getHusband()).getBirthDate()))
+                                                    System.out.println("Pass");
+                                            else
+                                                    System.out.println("Error:Divorce Date before Birth Date for Husband: "+getGedcomIndiList().get(entry1.getValue().getHusband()).gettID());
+
+                                            if(!entry1.getValue().getDivorceDate().before(getGedcomIndiList().get(entry1.getValue().getWife()).getBirthDate()))
+                                                    System.out.println("Pass");
+                                            else
+                                                    System.out.println("Error:Divorce Date before Birth Date for Wife: "+getGedcomIndiList().get(entry1.getValue().getWife()).gettID());
+
+
+                                    }
+                                    else
+                                            System.out.println("Pass");
+                            }
+             }
+
+             public static void checkIndividualBirthdatebeforeParentMarriageDate()
+             {
+                 System.out.println("\n\n Check Individual's Birth Date before Parents' Marriage Date");
+                 System.out.println("--------------------------------------------------------------------");
+
+                     for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet()) {
+
+                                    if(entry.getValue().getMarriageDate()!=null && entry.getValue().getBirthDate()!=null)
+                                            {
+                                                    if(entry.getValue().getMarriageDate().after(entry.getValue().getBirthDate()))
+                                                            System.out.println("Error:Birthdate before Parents' Marriage Date of "+entry.getValue().getId());
+                                            }
+                                    else
+                                            System.out.println("Pass");
+                            }
+
+
+             }
 	
 	 
 	 public static void main(String args[]){
@@ -564,6 +613,9 @@ public class P04 {
 		checkDivorceafterTodayDate();
 		checkIndividualBirthdatebeforeParentBirthdate();
 		checkDivorceAfterDeathError();
+		
+		checkDivorceDatebeforeBirthdate();
+                checkIndividualBirthdatebeforeParentMarriageDate();
 		
 		}
 			
