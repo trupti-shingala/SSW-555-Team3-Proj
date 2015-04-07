@@ -655,7 +655,74 @@ public class P04 {
 		    
 		}
 		
+	 public static void CheckTwinsInFamily(HashMap<String, Individual> gedcomIndividualList, HashMap<String, Family> gedcomFamilyList){
+		 System.out.println("\n");
+			System.out.println("Twins in the Family");
+		    System.out.println("---------------------------------------------");
+		   HashMap<Calendar,String>MapBirth=new HashMap<Calendar,String>();
+		    
+		    for (Map.Entry<String,Family> entry : gedcomFamilyList.entrySet())
+		    {
+		    	List<String> children=entry.getValue().getChildren();
+		    	
+		    	String h=entry.getValue().getHusband();
+		    	String w=entry.getValue().getWife();
+		    	
+		    	//Individual husb=gedcomIndividualList.get(h);
+		    	//Individual wife=gedcomIndividualList.get(w);
+		    	
+		    	for(int i =0;i<children.size();i++){
+		    		Individual child=gedcomIndividualList.get(children);
+		    		
+		    		Calendar birthDate = child.getBirthDate();
+		    		if(MapBirth.containsKey(birthDate)){
+		    			String twin=MapBirth.get(birthDate);
+		    			System.out.println("There are Twins in the Family");
+		    			System.out.println("Twins in the Family"+ entry.getValue().getId()+" " + child.gettID() +"	"+	twin);
+		    			
+		    		}
+		    		else{
+		    			MapBirth.put(birthDate,child.gettID());
+		    		}
+		    		
+		    		
+		    		
+		    	}
+		    	
+		    	
+		    }
+		 
+		 
+	 }
 	 
+	  public static void ListMemberBySameBirthMonth()
+             {
+                 
+                 int month = 0, cnt=0;
+                 String[] month_name = {"January", "February", "March", "Aprl","May", "June", "July","Augest","September","October","November","December"};
+                 System.out.println("\n\n List of all memeber whose Birth Month is same");
+                 System.out.println("------------------------------------------");
+                 
+                 for(int i=1; i<12;i++)
+                 {                    
+                     for(Map.Entry<String,Family> entry :getGedcomFamily().entrySet())
+                     {  
+                         int id= Integer.parseInt(entry.getValue().getId());
+                         for(int j=0;j<id;j++)
+                         {
+                         Date Bdate= entry.getValue().getBirthDate();
+                         month=Bdate.getMonth();
+                         if(month==i)
+                         {
+                             System.out.println("Name Of Members who born in same month of " +month_name +  " are: " + getGedcomIndiList().get(entry.getValue().getName()).gettName());
+                         }
+                         }
+
+                     }
+                 }
+  
+             }
+
 	 
 	 public static void main(String args[]){
 		String filename;
@@ -685,19 +752,21 @@ public class P04 {
 		//checkDivorceBeforeBirthError();
 		//checkMarriageBeforeBirthError();
 		//checkMarriageAfterDeathError();
-		checkMarriageBeforeLegalAgeError(gedcomIndi, gedcomFamily);
-		checkBirthAfterDeathError(gedcomIndi, gedcomFamily);
-		checkBirthOfChildAfterDeathOfMotherError(gedcomIndi, gedcomFamily);
+		//checkMarriageBeforeLegalAgeError(gedcomIndi, gedcomFamily);
+		//checkBirthAfterDeathError(gedcomIndi, gedcomFamily);
+		//checkBirthOfChildAfterDeathOfMotherError(gedcomIndi, gedcomFamily);
 		
-		checkDivorceafterTodayDate();
-		checkIndividualBirthdatebeforeParentBirthdate();
-		checkDivorceAfterDeathError();
+		//checkDivorceafterTodayDate();
+		//checkIndividualBirthdatebeforeParentBirthdate();
+		//checkDivorceAfterDeathError();
 		
 		checkDivorceDatebeforeBirthdate();
                 checkIndividualBirthdatebeforeParentMarriageDate();
                 CheckBirthMonth(gedcomIndi, gedcomFamily);
 		checkMultipleMarriages(gedcomIndi, gedcomFamily);
 		
+		ListMemberBySameBirthMonth();
+		CheckTwinsInFamily(gedcomIndi, gedcomFamily);
 		}
 			
 	
