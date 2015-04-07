@@ -576,7 +576,86 @@ public class P04 {
 
 
              }
+             
+              public static void CheckBirthMonth(HashMap<String, Individual> gedcomIndividualList, HashMap<String, Family> gedcomFamilyList){
+		 System.out.println("\n");
+			System.out.println("Mother give birth to her second child within 9 months after her first child birth");
+		    System.out.println("---------------------------------------------");
+		    for (Map.Entry<String,Family> entry : gedcomFamilyList.entrySet())
+		    {
+		    	List<String> childran=entry.getValue().getChildren();
+		    	if(childran!=null && childran.size()>1){
+		    		//Individual child=gedcomIndividualList.get(childran);
+		    		
+		    		String firstchild =childran.get(0);
+		    		Individual first=gedcomIndividualList.get(firstchild);
+		    		Calendar birthDate = first.getBirthDate();
+		    		
+		    		String secondchild =childran.get(1);
+		    		Individual second=gedcomIndividualList.get(secondchild);
+		    		Calendar birthDate1 = second.getBirthDate();
+		    		
+		    		
+		    	int diff=(birthDate.get(Calendar.MONTH)-(birthDate1.get(Calendar.MONTH)));
+		    	if(diff<9){
+		    		System.out.println("There are two childran born within 9 months for Family" +entry.getValue().getId()+" first child is "+ first.gettID() +" Second child is"	 +second.gettID());
+		    	}
+		    	else{
+		    		System.out.println("There are no  two childran born within 9 months for Family" +entry.getValue().getId());
+		    	}
+		    		
+		    	}
+		    	
+		    
+		    }
+		    	
+		 
+		 
+	 }
 	
+	public static void checkMultipleMarriages(HashMap<String, Individual> gedcomIndividualList, HashMap<String, Family> gedcomFamilyList){
+			System.out.println("\n");
+			System.out.println("Multiple Marriages at the same Time Errors");
+		    System.out.println("------------------------------------------");
+		    
+		    
+		    
+		    for (Map.Entry<String,Individual> entry : gedcomIndividualList.entrySet()) {
+		    	int openFamily = 0;
+		    	Individual I = entry.getValue();
+							
+				List<String> fams = I.getFams();
+								
+				if(fams != null && fams.size() > 1){
+					for(String famId: fams){
+						Family f = gedcomFamilyList.get(famId);
+						if(f.getDivorceDate() == null){
+							String h = f.getHusband();
+							String w = f.getWife();
+							
+							Individual husb  = gedcomIndividualList.get(h);
+							Individual wife  = gedcomIndividualList.get(w);
+							
+							if( I.gettID().equals(husb.gettID()) && (wife.getDeath() == null || wife.getDeath().after(husb.getDeath())) ){
+								openFamily++;
+							}
+							else if(I.gettID().equals(wife.gettID()) && (husb.getDeath() == null|| husb.getDeath().after(wife.getDeath()))){
+								openFamily++;
+							}
+						}
+					}
+					
+				}
+				
+				if(openFamily > 1){
+					System.out.println("ERROR: Person " +I.gettID() + I.gettName()+ " is married to multiple people at the same time");
+				}
+				
+			}
+		    
+		}
+		
+	 
 	 
 	 public static void main(String args[]){
 		String filename;
@@ -616,6 +695,8 @@ public class P04 {
 		
 		checkDivorceDatebeforeBirthdate();
                 checkIndividualBirthdatebeforeParentMarriageDate();
+                CheckBirthMonth(gedcomIndi, gedcomFamily);
+		checkMultipleMarriages(gedcomIndi, gedcomFamily);
 		
 		}
 			
