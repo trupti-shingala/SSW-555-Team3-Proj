@@ -144,14 +144,30 @@ public class P04 {
 				line=reader.readLine();
 				DateContent=line.split(" ");
 				if(f!=null && line.indexOf("DATE")>0){
-					f.setMarriageDate(processLevel2(DateContent));
+					f.setMarriageDate(processLevel2(DateContent[2]+"-"+DateContent[3]+"-"+DateContent[4]));
 				}
 			}
 			else if (gedcomContent[1].equals("DIV")){
 				line=reader.readLine();
 				DateContent=line.split(" ");
 				if(f!=null && line.indexOf("DATE")>0){
-					f.setDivorceDate(processLevel2(DateContent));
+					f.setDivorceDate(processLevel2(DateContent[2]+"-"+DateContent[3]+"-"+DateContent[4]));
+				}
+				
+			}
+			else if (gedcomContent[1].equals("BIRTH")){
+				line=reader.readLine();
+				DateContent=line.split(" ");
+				if(indi!=null && line.indexOf("DATE")>0){
+					indi.setBirthDate(processLevel2(DateContent[2]+"-"+DateContent[3]+"-"+DateContent[4]));
+				}
+				
+			}
+			else if (gedcomContent[1].equals("DEAT")){
+				line=reader.readLine();
+				DateContent=line.split(" ");
+				if(indi!=null && line.indexOf("DATE")>0){
+					indi.setDeath(processLevel2(DateContent[2]+"-"+DateContent[3]+"-"+DateContent[4]));
 				}
 				
 			}
@@ -179,50 +195,28 @@ public class P04 {
 		}
 	
 	
-	
-	public static Calendar processLevel2(String [] gedcomContent){
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy");
-		StringBuilder dateStr = new StringBuilder();
-		for(int i =2; i< gedcomContent.length ; i++){
-			if(dateStr.length() > 0){
-				dateStr.append(" ");
-			}
-			dateStr.append(gedcomContent[i]);
-		}
+public static Calendar processLevel2(String strDate )
+	{	
+	  try {
+		  DateFormat formatter ; 
+		  Date date ; 
+			  formatter = new SimpleDateFormat("dd-MMM-yyyy");
 
-		java.util.Date date = null;
-		try {
-			date = dateFormat.parse(dateStr.toString());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Calendar dateCal = new GregorianCalendar();
-		dateCal.setTime(date);
-			
-		return dateCal;
+		date = (Date)formatter.parse(strDate);
+		// System.out.println(date);
+		  Calendar cal=Calendar.getInstance();
+		  cal.setTime(date);
+		 return cal;
+	} catch (ParseException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
+	return null;
+	 
 	
-	 void validTag(List<String> validTags){
-		validTags.add("INDI");
-		validTags.add("NAME");
-		validTags.add("SEX");
-		validTags.add("BIRT");
-		validTags.add("DEAT");
-		validTags.add("FAMC");
-		validTags.add("FAMS");
-		validTags.add("FAM");
-		validTags.add("MARR");
-		validTags.add("HUSB");
-		validTags.add("WIFE");
-		validTags.add("CHIL");
-		validTags.add("DIV");
-		validTags.add("DATE");
-		validTags.add("TRLR");
-		validTags.add("NOTE");
-		//validTags.add("BIRTH");
+	}	
 	
-	}
+
 	
 	public static void checkDivorceafterTodayDate()
          {
