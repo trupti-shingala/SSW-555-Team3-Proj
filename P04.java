@@ -716,6 +716,89 @@ public static Calendar processLevel2(String strDate )
                  }
   
              }
+             
+             public static void listSiblingsInOrder()
+	 {
+		 System.out.println("\n print siblings in a family in increasing order of their age\n");
+		 for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
+			{
+			 int size=entry.getValue().getChildren().size();
+			 if(size>1)
+				 {
+				 	Calendar[] dates=new Calendar[size];
+					String[] Id=new String[size];
+					for(int i =0;i<size;i++)
+					{
+						dates[i]=getGedcomIndiList().get(entry.getValue().getChildren().get(i)).getBirthDate();
+						Id[i]=getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettID();
+					}
+			        for (int m = size; m >= 0; m--) 
+			        {
+			            for (int i = 0; i < size - 1; i++) 
+			            {
+			                int k = i + 1;
+			                if(dates[i].after(dates[k]))
+			                {
+			                	Calendar temp;
+			                	String tem;
+			    		        temp = dates[i];
+			    		        dates[i] = dates[k];
+			    		        dates[k] = temp;
+			    		        tem=Id[i];
+			    		        Id[i]=Id[k];
+			    		        Id[k]=tem;
+			    		        
+
+			                }
+			            }
+			            
+			        }
+			        System.out.println("children of family "+entry.getValue().getId()+"with their date of births in ascending order" );
+			        for(int i=0;i<size;i++)
+			        	System.out.println(Id[i]+" "+dates[i].getTime().toString());
+						
+				 }else if(size==1)
+				 {
+					 System.out.println("child of family "+entry.getValue().getId() );
+			 			System.out.println(getGedcomIndiList().get(entry.getValue().getChildren().get(0)).gettID()+" "+getGedcomIndiList().get(entry.getValue().getChildren().get(0)).getBirthDate().getTime().toString());
+				 }
+			}
+		 
+	 }
+	 
+	 
+	  public static void childWithDifferentSurname()
+		  {
+			  
+					  System.out.println("\n print name of the child in a family with a surname different from the family name\n");
+						 for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
+							{
+							 String[] FName = getGedcomIndiList().get(entry.getValue().getHusband()).gettName().split(" ");
+							 String lastName=FName[FName.length-1];
+							
+							 int flag=0;
+							 int size=entry.getValue().getChildren().size();
+							 if(size>=1)
+								 {
+									String[] childName=new String[size];
+									for(int i =0;i<size;i++)
+										{
+											childName[i]=getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettName();
+											String[] childLastName=childName[i].split(" ");
+										
+													if(!childLastName[childLastName.length-1].equalsIgnoreCase(lastName))
+													{	flag=1;
+														System.out.println("Child "+childName[i]+" is having different surname from family name "+lastName);
+													}
+										}
+											
+								 }
+							 if(flag==0)
+								 System.out.println("Family "+entry.getValue().getId()+" pass");
+							}
+			
+			 
+		  }
 
 	 
 	 public static void main(String args[]){
@@ -754,13 +837,16 @@ public static Calendar processLevel2(String strDate )
 		//checkIndividualBirthdatebeforeParentBirthdate();
 		//checkDivorceAfterDeathError();
 		
-		checkDivorceDatebeforeBirthdate();
-                checkIndividualBirthdatebeforeParentMarriageDate();
-                CheckBirthMonth(gedcomIndi, gedcomFamily);
-		checkMultipleMarriages(gedcomIndi, gedcomFamily);
-		
-		ListMemberBySameBirthMonth();
-		CheckTwinsInFamily(gedcomIndi, gedcomFamily);
+	//	checkDivorceDatebeforeBirthdate();
+         //       checkIndividualBirthdatebeforeParentMarriageDate();
+          //      CheckBirthMonth(gedcomIndi, gedcomFamily);
+	//	checkMultipleMarriages(gedcomIndi, gedcomFamily);
+	/	
+	//	ListMemberBySameBirthMonth();
+	//	CheckTwinsInFamily(gedcomIndi, gedcomFamily);
+	
+		listSiblingsInOrder();
+		childWithDifferentSurname();
 		}
 			
 	
