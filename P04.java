@@ -717,7 +717,7 @@ public static Calendar processLevel2(String strDate )
   
              }
              
-             public static void listSiblingsInOrder()
+            public static void listSiblingsInOrder()
 	 {
 		 System.out.println("\n print siblings in a family in increasing order of their age\n");
 		 for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
@@ -766,36 +766,44 @@ public static Calendar processLevel2(String strDate )
 		 
 	 }
 	 
-	 
 	  public static void childWithDifferentSurname()
-		  {
-			  
-					  System.out.println("\n print name of the child in a family with a surname different from the family name\n");
-						 for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
-							{
-							 String[] FName = getGedcomIndiList().get(entry.getValue().getHusband()).gettName().split(" ");
-							 String lastName=FName[FName.length-1];
-							
-							 int flag=0;
-							 int size=entry.getValue().getChildren().size();
-							 if(size>=1)
-								 {
-									String[] childName=new String[size];
-									for(int i =0;i<size;i++)
-										{
-											childName[i]=getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettName();
-											String[] childLastName=childName[i].split(" ");
+	  {
+		  
+				  System.out.println("\n print name of the child in a family with a surname different from the family name\n");
+					 for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
+						{
+						 String[] FName = getGedcomIndiList().get(entry.getValue().getHusband()).gettName().split(" ");
+						 String lastName=FName[FName.length-1];
+						
+						 int flag=0;
+						 int size=entry.getValue().getChildren().size();
+						 if(size>=1)
+							 {
+								String[] childName=new String[size];
+								String[] childID=new String[size];
+								
+								for(int i =0;i<size;i++)
+									{
+										childName[i]=getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettName();
+										childID[i]=getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettID();
 										
-													if(!childLastName[childLastName.length-1].equalsIgnoreCase(lastName))
-													{	flag=1;
-														System.out.println("Child "+childName[i]+" is having different surname from family name "+lastName);
-													}
-										}
-											
-								 }
-							 if(flag==0)
-								 System.out.println("Family "+entry.getValue().getId()+" pass");
-							}
+										String[] childLastName=childName[i].split(" ");
+									
+												if(!childLastName[childLastName.length-1].equalsIgnoreCase(lastName))
+												{	flag=1;
+													System.out.println("Child "+" "+childID[i]+childName[i]+" is having different surname from family name "+lastName);
+												}
+									}
+										
+							 }
+						 if(flag==0)
+							 System.out.println("Family "+entry.getValue().getId()+" pass");
+						}
+		
+		 
+	  }
+	  
+	 
 		 public static void parentAndChildHaveSameName()
 	  	{
 		  	System.out.println("\n print siblings in a family in increasing order of their age\n");
