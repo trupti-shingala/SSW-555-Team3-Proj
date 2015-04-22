@@ -796,9 +796,68 @@ public static Calendar processLevel2(String strDate )
 							 if(flag==0)
 								 System.out.println("Family "+entry.getValue().getId()+" pass");
 							}
-			
+		 public static void parentAndChildHaveSameName()
+	  	{
+		  	System.out.println("\n print siblings in a family in increasing order of their age\n");
+			 for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
+				{
+				 String motherName=getGedcomIndiList().get(entry.getValue().getWife()).gettName();
+				 String fatherName=getGedcomIndiList().get(entry.getValue().getHusband()).gettName();
+				 int flag=0;
+				 int size=entry.getValue().getChildren().size();
+				 if(size>=1)
+					 {
+						String[] childName=new String[size];
+						for(int i =0;i<size;i++)
+							childName[i]=getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettName();
+						for(int i=0;i<size;i++)
+							if(childName[i].equalsIgnoreCase(motherName)||childName[i].equalsIgnoreCase(fatherName))
+								{	flag=1;
+									System.out.println("Error: child "+childName[i]+" has the same name as a parent");
+								}
+						
+								
+					 }
+				 if(flag==0)
+					 System.out.println("Family "+entry.getValue().getId()+" pass");
+				}
+		 }
 			 
 		  }
+		 public static void marraigeAnniverseryInSixtyDays()
+	  	{
+		  System.out.println("\n print couples whose anniversery is in the next 60 days\n");
+		  
+		  int flag=0;
+		 // System.out.println(Calendar.getInstance().getTime().toString());
+			Calendar cal=Calendar.getInstance();
+			cal.add(Calendar.DATE, 60);
+			//System.out.println(cal.getTime().toString());
+			
+			 for (Map.Entry<String,Family> entry1 : getGedcomFamily().entrySet())
+				 if(entry1.getValue().getMarriageDate()!=null)
+				 {
+					 Calendar calObj=entry1.getValue().getMarriageDate();
+					//	System.out.println(calObj.getTime().toString());
+					//	System.out.println();
+						calObj.set(Calendar.YEAR,2015);
+					
+					//	System.out.println(calObj.getTime().toString());
+						
+						if(calObj.after(Calendar.getInstance())&&calObj.before(cal))
+							{
+									System.out.println(getGedcomIndiList().get(entry1.getValue().getHusband()).gettName()
+									+" and "+getGedcomIndiList().get(entry1.getValue().getWife()).gettName()
+									+" have their anniversary in the next 60 days");
+									flag=1;
+							}
+				
+				 }
+				 if(flag==0)
+					 System.out.println("No such record");
+				 
+					 
+	  }
 
 	 
 	 public static void main(String args[]){
@@ -847,6 +906,8 @@ public static Calendar processLevel2(String strDate )
 	
 		listSiblingsInOrder();
 		childWithDifferentSurname();
+		parentAndChildHaveSameName();
+		marraigeAnniverseryInSixtyDays();
 		}
 			
 	
