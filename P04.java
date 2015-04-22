@@ -858,6 +858,52 @@ public static Calendar processLevel2(String strDate )
 				 
 					 
 	  }
+	  
+	  public static void printMaleFemale()
+		  {
+			  
+					  System.out.println("\n print name of all the male members and female members in the file seperatelye\n");
+						 
+					  System.out.println("\n Male members in file\n");
+
+					  for (Map.Entry<String,Individual> entry : getGedcomIndiList().entrySet())
+					  {
+						  if(entry.getValue().gettGender().equals("M"))
+							  System.out.println(entry.getValue().gettName());
+					  }
+					  
+					  System.out.println("\n Female members in file\n");
+
+					  for (Map.Entry<String,Individual> entry : getGedcomIndiList().entrySet())
+					  {
+						  if(entry.getValue().gettGender().equals("F"))
+							  System.out.println(entry.getValue().gettName());
+					  }
+							 
+			
+			 
+		  }
+		  
+		  public static void CheckDeathdateAfterTodaydate()
+	         {
+	             System.out.println("\n\nCheck Death After Today's date\n\n");
+	             
+	             for (Map.Entry<String,Individual> entry : getGedcomIndiList().entrySet())
+	             {
+	            	 
+	            	 Calendar cal=Calendar.getInstance();
+	            	 if(entry.getValue().getDeath()!=null)
+	            	 {	
+	            		 
+	            		 if(entry.getValue().getDeath().after(cal))
+	            			 System.out.println("Error:Death date after Current date for "+ entry.getValue().gettName());
+	            		 else
+	            			 System.out.println(entry.getValue().gettName()+" passed the check" );
+	            			 
+	            	 }
+	                    
+	             }
+	         }
 
 	 
 	 public static void main(String args[]){
@@ -908,6 +954,10 @@ public static Calendar processLevel2(String strDate )
 		childWithDifferentSurname();
 		parentAndChildHaveSameName();
 		marraigeAnniverseryInSixtyDays();
+		
+		printMaleFemale();
+                CheckDeathdateAfterTodaydate();
+                
 		}
 			
 	
