@@ -814,7 +814,7 @@ public static Calendar processLevel2(String strDate )
 					  for (Map.Entry<String,Individual> entry : getGedcomIndiList().entrySet())
 					  {
 						  if(entry.getValue().gettGender().equals("M"))
-							  System.out.println(entry.getValue().gettName());
+							  System.out.println(entry.getValue().gettID()+" "+entry.getValue().gettName());
 					  }
 					  
 					  System.out.println("\n Female members in file\n");
@@ -822,7 +822,8 @@ public static Calendar processLevel2(String strDate )
 					  for (Map.Entry<String,Individual> entry : getGedcomIndiList().entrySet())
 					  {
 						  if(entry.getValue().gettGender().equals("F"))
-							  System.out.println(entry.getValue().gettName());
+							  System.out.println(entry.getValue().gettID()+" "+entry.getValue().gettName());
+							  
 					  }
 							 
 			
@@ -841,14 +842,15 @@ public static Calendar processLevel2(String strDate )
 	            	 {	
 	            		 
 	            		 if(entry.getValue().getDeath().after(cal))
-	            			 System.out.println("Error:Death date after Current date for "+ entry.getValue().gettName());
+	            			 System.out.println("Error:Death date after Current date for "+ entry.getValue().gettID());
 	            		 else
-	            			 System.out.println(entry.getValue().gettName()+" passed the check" );
+	            			 System.out.println(entry.getValue().gettID()+" passed the check" );
 	            			 
 	            	 }
 	                    
 	             }
 	         }
+
 			
 		public static void parentAndChildHaveSameName()
 		{
