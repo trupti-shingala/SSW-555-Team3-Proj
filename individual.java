@@ -1,8 +1,10 @@
 
+
 import java.awt.List;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class Individual {
@@ -11,11 +13,32 @@ public class Individual {
 	private String gender;
 	private Calendar birt;
 	private Calendar death;
+	private boolean dobAvailable=false;
+	private boolean dodAvailable=false;
+
 	
+	public boolean isDodAvailable() {
+		return dodAvailable;
+	}
+
+	public void setDodAvailable(boolean dodAvailable) {
+		this.dodAvailable = dodAvailable;
+	}
+
+	public boolean isDobAvailable() {
+		return dobAvailable;
+	}
+
+	public void setDobAvailable(boolean dobAvailable) {
+		this.dobAvailable = dobAvailable;
+	}
+
 	private ArrayList<String> fams = new ArrayList<String>();
 	private ArrayList<String> famc = new ArrayList<String>();
 	
 		
+	
+
 	public String gettID(){
 		return id;
 	}
@@ -49,6 +72,8 @@ public class Individual {
 	public void setDeath(Calendar death) {
 	this.death = death;
 	}
+	
+	
 	public ArrayList<String> getFams() {
 		return fams;
 	}
