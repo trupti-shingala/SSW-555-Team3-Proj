@@ -917,7 +917,64 @@ public static Calendar processLevel2(String strDate )
 				 System.out.println("No such record");
 			 
 				 
-}
+}public static void marriedInLeapYear()
+		  {
+			  System.out.println("\n\nPrint couples married in a leap year\n\n");
+			  for (Map.Entry<String,Family> entry : getGedcomFamily().entrySet())
+	             {
+				  //System.out.println(entry.getValue().gettID()+" "+entry.getValue().getBirthDate().getTime().toString());
+				  if(entry.getValue().isMdAvailable())
+				  	{	
+				  		int  year = entry.getValue().getMarriageDate().get(Calendar.YEAR);
+				  		//System.out.println(entry.getValue().gettID()+" "+year);
+				        boolean isLeapYear = ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0));
+
+				        if (isLeapYear)
+				        {
+				            System.out.println(getGedcomIndiList().get(entry.getValue().getHusband()).gettID()+" & "
+				            		+getGedcomIndiList().get(entry.getValue().getWife()).gettID()+
+									  " were married in a leap year "+year);
+				        }
+				       
+					  }
+	             }
+		  }
+		  
+		  
+		  
+		  public static void birthdayInThirtyyDays()
+		  {
+			  System.out.println("\n print individuals whose birthday is in the next 30 days\n");
+			  
+			  int flag=0;
+			 
+				Calendar cal=Calendar.getInstance();
+				cal.add(Calendar.DATE, 30);
+				
+				
+				 for (Map.Entry<String,Individual> entry1 : getGedcomIndiList().entrySet())
+					 if(entry1.getValue().isDobAvailable())
+					 {
+						 Calendar calObj=entry1.getValue().getBirthDate();
+						
+							calObj.set(Calendar.YEAR,2015);
+						
+						
+							
+							if(calObj.after(Calendar.getInstance())&&calObj.before(cal))
+								{
+										System.out.println(entry1.getValue().gettID()+" "+entry1.getValue().gettName()+
+												"'s bithday is in the next 30 days");
+										flag=1;
+								}
+							
+						
+					 }
+					 if(flag==0)
+						 System.out.println("No such record");
+					 
+		  }
+		  
 	
 				
 	 
@@ -961,17 +1018,21 @@ public static Calendar processLevel2(String strDate )
          //       checkIndividualBirthdatebeforeParentMarriageDate();
           //      CheckBirthMonth(gedcomIndi, gedcomFamily);
 	//	checkMultipleMarriages(gedcomIndi, gedcomFamily);
-	/	
+
 	//	ListMemberBySameBirthMonth();
 	//	CheckTwinsInFamily(gedcomIndi, gedcomFamily);
 	
-		listSiblingsInOrder();
-		childWithDifferentSurname();
-		parentAndChildHaveSameName();
-		marraigeAnniverseryInSixtyDays();
+		//listSiblingsInOrder();
+		//childWithDifferentSurname();
+		//parentAndChildHaveSameName();
+		//marraigeAnniverseryInSixtyDays();
 		
-		printMaleFemale();
-                CheckDeathdateAfterTodaydate();
+		//printMaleFemale();
+               // CheckDeathdateAfterTodaydate();
+               
+               
+               birthdayInThirtyyDays();
+               marriedInLeapYear();
                 
 		}
 			
