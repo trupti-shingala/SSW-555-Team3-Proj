@@ -12,10 +12,24 @@ public class Family {
 	private ArrayList<String> children = new ArrayList<String>();
 	private Calendar marriageDate;
 	private Calendar divorceDate;
-	private Calendar currentDate;
-        private Date birt;
+	
+	private boolean mdAvailable=false;
+	private boolean ddAvailable=false;
 	
 	
+	public boolean isMdAvailable() {
+		return mdAvailable;
+	}
+	public void setMdAvailable(boolean mdAvailable) {
+		this.mdAvailable = mdAvailable;
+	}
+	public boolean isDdAvailable() {
+		return ddAvailable;
+	}
+	public void setDdAvailable(boolean ddAvailable) {
+		this.ddAvailable = ddAvailable;
+	}
+
 	public String getId() {
 		return Id;
 	}
@@ -56,21 +70,6 @@ public class Family {
 	
 	public void addChildren(String id){
 		children.add(id);
-	}
-	
-	public void setcurrentDate(Calendar currentDate){
-            this.currentDate=currentDate;
-        }
-        
-        public Calendar getcurrentDate(){
-            return currentDate;
-        }
-
-         public Date getBirthDate() {
-	return birt;
-	}
-	public void setBirthDate(Date birt) {
-	this.birt = birt;
 	}
 
 }
