@@ -1024,6 +1024,44 @@ public static Calendar processLevel2(String strDate )
 				System.out.println("Name Of child " +": " + getGedcomIndiList().get(entry.getValue().getChildren().get(i)).gettName());
 			System.out.println();
 		}
+		 public static void  printAgeAtDeath()
+		  {
+			  System.out.println("\n\nPrint Age at death\n\n");
+			  for (Map.Entry<String,Individual> entry : getGedcomIndiList().entrySet())
+	             {
+				  if(entry.getValue().isDobAvailable())
+						  if(entry.getValue().getDeath()!=null)
+							  System.out.println(entry.getValue().gettID()+" "
+						  +entry.getValue().gettName()+" died at the age of "+
+						  (entry.getValue().getDeath().get(Calendar.YEAR)-entry.getValue().getBirthDate()
+										.get(Calendar.YEAR))+ " years");
+
+
+	             }
+
+		  }
+		  
+		  public static void birthInLeapYear()
+		  {
+			  System.out.println("\n\nPrint Individuals born in a leap year\n\n");
+			  for (Map.Entry<String,Individual> entry : getGedcomIndiList().entrySet())
+	             {
+
+				  if(entry.getValue().isDobAvailable())
+				  	{
+				  		int  year = entry.getValue().getBirthDate().get(Calendar.YEAR);
+
+				        boolean isLeapYear = ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0));
+
+				        if (isLeapYear)
+				        {
+				            System.out.println(entry.getValue().gettID()+" "
+									  +entry.getValue().gettName()+" was born in a leap year "+year);
+				        }
+
+					  }
+	             }
+		  }
 		
 		//checkDivorceBeforeMarriageError();
 		//checkHusbandWifeGenderError();
@@ -1061,6 +1099,9 @@ public static Calendar processLevel2(String strDate )
                
                printWidows();
                printRemarriedIndividuals();
+               
+                printAgeAtDeath();
+                birthInLeapYear();
                 
 		}
 			
