@@ -975,7 +975,32 @@ public static Calendar processLevel2(String strDate )
 					 
 		  }
 		  
-	
+	//Sprint 5
+	 public static void printWidows()
+		  {
+			  System.out.println("\n print name of all the widows\n");
+			  for(Map.Entry<String, Family> entry : getGedcomFamily().entrySet())
+			  {
+				  if(getGedcomIndiList().get(entry.getValue().getHusband()).isDodAvailable()&&
+						  (!getGedcomIndiList().get(entry.getValue().getWife()).isDodAvailable()))
+				  {
+					  System.out.println(getGedcomIndiList().get(entry.getValue().getWife()).gettID()+
+							  " "+getGedcomIndiList().get(entry.getValue().getWife()).gettName()+" is a widow");
+				  }
+			  }
+		  }
+		  
+	public static void printRemarriedIndividuals()
+		  {
+			  System.out.println("\n print name of all the individuals who remarried\n");
+			  for(Map.Entry<String, Individual> entry : getGedcomIndiList().entrySet())
+			  {
+				  if((!entry.getValue().getFams().isEmpty())&&entry.getValue().getFams().size()>1)
+				  {
+					  System.out.println(entry.getValue().gettID()+" "+entry.getValue().gettName()+" remarried");
+				  }
+			  }
+		  }
 				
 	 
 	 public static void main(String args[]){
@@ -1033,6 +1058,9 @@ public static Calendar processLevel2(String strDate )
                
                birthdayInThirtyyDays();
                marriedInLeapYear();
+               
+               printWidows();
+               printRemarriedIndividuals();
                 
 		}
 			
