@@ -13,7 +13,23 @@ public class Family {
 	private Calendar marriageDate;
 	private Calendar divorceDate;
 	
+	private boolean mdAvailable=false;
+	private boolean ddAvailable=false;
 	
+	
+	public boolean isMdAvailable() {
+		return mdAvailable;
+	}
+	public void setMdAvailable(boolean mdAvailable) {
+		this.mdAvailable = mdAvailable;
+	}
+	public boolean isDdAvailable() {
+		return ddAvailable;
+	}
+	public void setDdAvailable(boolean ddAvailable) {
+		this.ddAvailable = ddAvailable;
+	}
+
 	public String getId() {
 		return Id;
 	}
